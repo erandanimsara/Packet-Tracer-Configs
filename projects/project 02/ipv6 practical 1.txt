@@ -1,0 +1,42 @@
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R-01
+R-01(config)#inter
+R-01(config)#interface gig
+R-01(config)#interface gigabitEthernet 0/0/0
+R-01(config-if)#descriptio
+R-01(config-if)#description sw-01 link
+R-01(config-if)#ipv6 address 2001:CAFE:ABCD:0001:0000:0000:0001/64
+% Incomplete command.
+R-01(config-if)#ipv6 address 2001:CAFE:ABCD:0001:0000:0000:0000:0001/64
+R-01(config-if)#no shutdown
+
+R-01(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/0, changed state to up
+
+R-01(config-if)#exit
+R-01(config)#gig
+R-01(config)#giga
+R-01(config)#gigab
+R-01(config)#gigabi
+R-01(config)#gigabit et
+R-01(config)#int
+R-01(config)#interface gig
+R-01(config)#interface gigabitEthernet 0/0/1
+R-01(config-if)#descri
+R-01(config-if)#description sw-02 link
+R-01(config-if)#ipv6 address 2001:CAFE:ABCD:0002:0000:0000:0000:0001/64
+R-01(config-if)#no shutdown
+
+R-01(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0/1, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0/1, changed state to up
+exit
+R-01(config)#ipv6 unicast-routing
+R-01(config)#
+R-01#
+%SYS-5-CONFIG_I: Configured from console by console

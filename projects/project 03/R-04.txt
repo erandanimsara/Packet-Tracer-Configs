@@ -1,0 +1,51 @@
+Router>enable
+Router#configure terminal 
+Router(config)#hostname R-04
+R-04(config)#interface gigabitEthernet 0/0/0
+R-04(config-if)#ip helper-address 172.16.0.3
+R-04(config-if)#description sw-05 Link
+R-04(config-if)#ip address 172.16.3.161 255.255.255.224
+R-04(config-if)#no shutdown
+
+
+R-04(config-if)#exit
+R-04(config)#interface gigabitEthernet 0/0/1
+R-04(config-if)#description sw-06 Link
+R-04(config-if)#ip helper-address 172.16.0.3
+R-04(config-if)#ip address 172.16.3.1 255.255.255.192
+R-04(config-if)#no shutdown
+
+R-04(config-if)#exit
+R-04(config)#interface serial 0/2/0
+R-04(config-if)#description R-02 Link
+R-04(config-if)#ip address 172.16.3.233 255.255.255.252
+R-04(config-if)#no shutdown
+
+R-04(config-if)#exit
+R-01(config)#exit
+
+R-04#clock set 02:05:10 18 August 2025
+R-04#configure terminal 
+R-04(config)#banner motd *
+####################################################### 
+This is Secure area. Please Enter your Authentication. 
+####################################################### *
+R-04(config)#enable secret YasiRu2520.lk
+R-04(config)#line console 0
+R-04(config-line)#password JAnath@2520.lk
+R-04(config-line)#exec-timeout 15
+R-04(config-line)#login
+R-04(config-line)#exit
+R-04(config)#security passwords min-length 10
+R-04(config)#service password-encryption 
+R-04(config)#ip domain-name sltsc.lk
+R-04(config)#username sshadmi secret AdmiN@$Ltsc.Lk 
+R-04(config)#crypto key  generate rsa
+2048
+R-04(config)#ip ssh version 2
+R-04(config)#line vty 0
+R-04(config-line)#transport input ssh
+R-04(config-line)#login local
+R-04(config-line)#exec-timeout 10
+R-04(config-line)#exit
+R-04(config)#login block-for 720 attempts 2 within 120
