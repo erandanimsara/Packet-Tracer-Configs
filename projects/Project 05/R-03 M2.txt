@@ -1,0 +1,142 @@
+Router>enable
+Router#conf
+Router#configure t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R-03
+R-03(config)#INT
+R-03(config)#INTerface GIG
+R-03(config)#INTerface GIGabitEthernet 0/0/0
+R-03(config-if)#des
+R-03(config-if)#description SW-04 Link
+R-03(config-if)#duplex auto
+R-03(config-if)#speed auto
+
+
+R-03(config-if)#no ip addre
+R-03(config-if)#no ip address 
+R-03(config-if)#exit
+R-03(config)#INTerface GIGabitEthernet 0/0/0.2
+R-03(config-subif)#description VLAN-02 LAB-01
+R-03(config-subif)#enc
+R-03(config-subif)#encapsulation dot
+R-03(config-subif)#encapsulation dot1Q 2
+R-03(config-subif)#ip ad
+R-03(config-subif)#ip address 172.16.11.190 255.255.255.192
+R-03(config-subif)#ip he
+R-03(config-subif)#ip help
+R-03(config-subif)#ip helper-address 172.16.0.2
+R-03(config-subif)#exit
+R-03(config)#INTerface GIGabitEthernet 0/0/0.3
+R-03(config-subif)#description VLAN-03 LAB-02
+R-03(config-subif)#encapsulation dot1Q 3
+R-03(config-subif)#ip address 172.16.9.126 255.255.255.128
+R-03(config-subif)#ip helper-address 172.16.0.2
+R-03(config-subif)#
+R-03(config-subif)#exit
+R-03(config)#INTerface GIGabitEthernet 0/0/0.4
+R-03(config-subif)#description VLAN-04 LAB-03
+R-03(config-subif)#encapsulation dot1Q 4
+R-03(config-subif)#ip address 172.16.11.62 255.255.255.192
+R-03(config-subif)#ip helper-address 172.16.0.2
+R-03(config-subif)#exit
+R-03(config)#INTerface GIGabitEthernet 0/0/0
+R-03(config-if)#no shutdown
+
+-03(config-if)#
+R-03(config-if)#exit
+R-03(config)#INTerface GIGabitEthernet 0/0/1
+R-03(config-if)#description SW-05 Link
+R-03(config-if)#ip address 172.16.11.222 255.255.255.224
+R-03(config-if)#ip helper-address 172.16.0.2
+R-03(config-if)#no shutdown
+R-03(config-if)#exit
+
+R-03(config-if)#exit
+R-03(config)#in
+R-03(config)#interface ser
+R-03(config)#interface serial 0/1/1
+R-03(config-if)#description R-02 Link
+R-03(config-if)#ip address 172.16.11.229 255.255.255.252
+R-03(config-if)#no shutdown
+
+%LINK-5-CHANGED: Interface Serial0/1/1, changed state to down
+R-03(config-if)#exit
+
+R-03(config)#ip route 172.16.0.0 255.255.248.0 172.16.11.230 121
+R-03(config)#ip route 172.16.9.128 255.255.255.128 172.16.11.230 121
+R-03(config)#ip route 172.16.10.0 255.255.255.128 172.16.11.230 121 
+R-03(config)#ip route 172.16.11.64 255.255.255.192 172.16.11.230 121
+R-03(config)#ip route 172.16.10.128 255.255.255.128 172.16.11.230 121 
+R-03(config)#ip route 172.16.8.0 255.255.255.0 172.16.11.230 121
+
+R-03(config)#router rip 
+R-03(config-router)#ver
+R-03(config-router)#version 2
+R-03(config-router)#network 172.16.11.192
+R-03(config-router)#network 172.16.11.228
+R-03(config-router)#network 172.16.9.0
+R-03(config-router)#network 172.16.11.0
+R-03(config-router)#network 172.16.11.128
+R-03(config-router)#no a
+R-03(config-router)#no auto-summary 
+R-03(config-router)#exit
+
+R-03#copy running-config startup-config 
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+R-03#
+
+R-03#copy running-config tftp: 
+Address or name of remote host []? 172.16.0.1
+Destination filename [R-03-confg]? 
+
+Writing running-config...!!
+[OK - 1733 bytes]
+
+
+R-03#clock set 18:30:00 07 october 2025
+R-03#
+R-03#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R-03(config)#
+R-03(config)#banner motd *
+Enter TEXT message.  End with the character '*'.
+
+###################################################
+This is Secure area. Please Enter your Authentication.
+#################################################### *
+
+R-03(config)#
+R-03(config)#enable secret Eranda@2520.lk
+R-03(config)#
+R-03(config)#line console 0
+R-03(config-line)#
+R-03(config-line)#password eRanda@2024.lk
+R-03(config-line)#exec-timeout 10
+R-03(config-line)#login
+R-03(config-line)#exit
+R-03(config)#
+R-03(config)#security passwords min-length 8
+R-03(config)#ip domain-name sltsc.lk
+R-03(config)#crypto key generate rsa 
+The name for the keys will be: R-03.sltsc.lk
+Choose the size of the key modulus in the range of 360 to 4096 for your
+  General Purpose Keys. Choosing a key modulus greater than 512 may take
+  a few minutes.
+
+How many bits in the modulus [512]: 1028
+% Generating 1028 bit RSA keys, keys will be non-exportable...[OK]
+
+R-03(config)#username sshadmin secret Eranda@SLTsc.lk
+*Oct 7 18:30:4.269: %SSH-5-ENABLED: SSH 1.99 has been enabled
+R-03(config)#
+R-03(config)#line vty 0
+R-03(config-line)#transport input ssh
+R-03(config-line)#login local 
+R-03(config-line)#exec-timeout 10
+R-03(config-line)#login local 
+R-03(config-line)#exit
+R-03(config)#
+R-03(config)#login block-for 900 attempts 2 within 60
+R-03(config)#

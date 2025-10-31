@@ -1,0 +1,19 @@
+SW-01 = users 63	
+SW-02 = users 150
+SW-03 = users 40 + 80 + 50
+SW-04 = users 
+SW-05 = users 15
+SW-06 = users 45
+SW-07 = users 70
+SW-08 = users 80
+SW-09 = users 1900
+
+
+
+R-02>R-01 = users 2
+R-02>R-03 = users 2
+R-02>R-04 = users 2
+R-02>R-05 = users 2
+---------------------
+              2501            class B = 172.16.0.0/24
+             -------

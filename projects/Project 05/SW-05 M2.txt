@@ -1,0 +1,39 @@
+SW-05#show mac address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    000d.bd53.5502    DYNAMIC     Gig0/1
+   1    0060.7013.ca44    DYNAMIC     Fa0/1
+   1    0060.7056.5b90    DYNAMIC     Fa0/2
+
+SW-05#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW-05(config)#interface fastEthernet 0/1
+SW-05(config-if)#switchport mode access 
+SW-05(config-if)#switchport port-security
+SW-05(config-if)#switchport port-security mac
+SW-05(config-if)#switchport port-security mac-address 0060.7013.ca44
+SW-05(config-if)#exit
+SW-05(config)#interface fastEthernet 0/2
+SW-05(config-if)#switchport mode access 
+SW-05(config-if)#switchport port-security
+SW-05(config-if)#switchport port-security mac-address 0060.7056.5b90
+SW-05(config-if)#exit
+SW-05(config)#int
+SW-05(config)#interface gig
+SW-05(config)#interface gigabitEthernet 0/1
+SW-05(config-if)#switchport mode access 
+SW-05(config-if)#switchport port-security
+SW-05(config-if)#switchport port-security mac-address 000d.bd53.5502
+SW-05(config-if)#
+SW-05(config-if)#exit
+SW-05(config)#interface gigabitEthernet 0/2
+SW-05(config-if)#shutdown
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/2, changed state to administratively down
+SW-05(config-if)#exit
+SW-05(config)#interface range fastEthernet 0/3-24
+SW-05(config-if-range)#shutdown

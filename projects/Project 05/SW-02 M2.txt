@@ -1,0 +1,48 @@
+Switch#show mac address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    0002.16be.9c20    DYNAMIC     Fa0/1
+   1    0006.2a15.5e86    DYNAMIC     Fa0/2
+   1    00e0.a3d9.5b02    DYNAMIC     Gig0/1
+Switch#config t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname SW-02
+SW-02(config)#
+SW-02(config)#in
+SW-02(config)#interface fa
+SW-02(config)#interface fastEthernet 0/1
+SW-02(config-if)#swi
+SW-02(config-if)#switchport mode acc
+SW-02(config-if)#switchport mode access 
+SW-02(config-if)#swi
+SW-02(config-if)#switchport p
+SW-02(config-if)#switchport por
+SW-02(config-if)#switchport port-security 
+SW-02(config-if)#switchport port-security mac
+SW-02(config-if)#switchport port-security mac-address 0002.16be.9c20
+SW-02(config-if)#exit
+SW-02(config)#interface fastEthernet 0/2
+SW-02(config-if)#switchport mode access 
+SW-02(config-if)#switchport port-security 
+SW-02(config-if)#switchport port-security mac-address 0006.2a15.5e86
+SW-02(config-if)#exit
+SW-02(config)#in
+SW-02(config)#interface gi
+SW-02(config)#interface gigabitEthernet 0/1
+SW-02(config-if)#switchport mode access 
+SW-02(config-if)#switchport port-security 
+SW-02(config-if)#switchport port-security mac-address 00e0.a3d9.5b02
+SW-02(config-if)#exit
+SW-02(config)#in
+SW-02(config)#interface fa
+SW-02(config)#interface ran
+SW-02(config)#interface range fas
+SW-02(config)#interface range fastEthernet 0/3-24
+SW-02(config-if-range)#shutdown
+SW-02(config-if-range)#exit
+SW-02(config)#interface gigabitEthernet 0/2
+SW-02(config-if)#shutdown

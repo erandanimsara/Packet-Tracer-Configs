@@ -1,0 +1,38 @@
+SW-08#show mac address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    000a.4186.5887    DYNAMIC     Fa0/2
+   1    0050.0f0a.1d67    DYNAMIC     Fa0/1
+   1    00d0.973c.8701    DYNAMIC     Gig0/1
+SW-08#
+SW-08#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW-08(config)#interface fastEthernet 0/1
+SW-08(config-if)#switchport mode access
+SW-08(config-if)#switchport port-security
+SW-08(config-if)#switchport port-security mac-address 0050.0f0a.1d67
+SW-08(config-if)#exit
+SW-08(config)#
+SW-08(config)#interface fastEthernet 0/2
+SW-08(config-if)#switchport mode access
+SW-08(config-if)#switchport port-security
+SW-08(config-if)#switchport port-security mac-address 000a.4186.5887
+SW-08(config-if)#exit
+SW-08(config)#interface gigabitEthernet 0/1
+SW-08(config-if)#switchport mode access
+SW-08(config-if)#switchport port-security
+SW-08(config-if)#switchport port-security mac-address 00d0.973c.8701
+SW-08(config-if)#
+SW-08(config-if)#exit
+SW-08(config)#interface gigabitEthernet 0/2
+SW-08(config-if)#shutdown
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/2, changed state to administratively down
+SW-08(config-if)#
+SW-08(config-if)#exit
+SW-08(config)#interface range fastEthernet 0/3-24
+SW-08(config-if-range)#shutdown

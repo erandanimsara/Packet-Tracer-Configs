@@ -1,0 +1,53 @@
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname SW-03
+SW-03(config)#
+SW-03(config)#end
+SW-03#copy running-config startup-config
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+SW-03#
+%SYS-5-CONFIG_I: Configured from console by console
+
+SW-03#
+SW-03#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW-03(config)#interface range fastEthernet 0/20-21
+SW-03(config-if-range)#description EtherChannel-1 LACP
+SW-03(config-if-range)#channel-group 1 mode active 
+SW-03(config-if-range)#duplex auto
+SW-03(config-if-range)#speed auto
+SW-03(config-if-range)#mdix auto
+SW-03(config-if-range)#exit
+SW-03(config)#
+SW-03(config)#interface range fastEthernet 0/22-23
+SW-03(config-if-range)#description EtherChannel-02 LACP
+SW-03(config-if-range)#channel-group 2 mode active 
+SW-03(config-if-range)#duplex auto
+SW-03(config-if-range)#speed auto
+SW-03(config-if-range)#mdix auto
+SW-03(config-if-range)#exit
+
+SW-03#show spanning-tree 
+VLAN0001
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32769
+             Address     0060.70C0.E247
+             This bridge is the root
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
+             Address     0060.70C0.E247
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/1            Desg FWD 4         128.25   P2p
+Po1              Desg FWD 12        128.27   Shr
+Po2              Desg FWD 12        128.28   Shr
+
+SW-03(config)#

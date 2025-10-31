@@ -1,0 +1,56 @@
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname SW-09
+SW-09(config)#
+SW-09(config)#end
+SW-09#copy running-config startup-config
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+SW-09#
+%SYS-5-CONFIG_I: Configured from console by console
+
+SW-09#
+SW-09#show ma
+SW-09#show maa
+SW-09#show mac a
+SW-09#show mac address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    0009.7ceb.ab4c    DYNAMIC     Fa0/2
+   1    00d0.973c.8702    DYNAMIC     Gig0/1
+   1    00d0.d34b.1c3d    DYNAMIC     Fa0/1
+SW-09#
+SW-09#
+SW-09#
+SW-09#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW-09(config)#interface fastEthernet 0/1
+SW-09(config-if)#switchport mode access
+SW-09(config-if)#switchport port-security
+SW-09(config-if)#switchport port-security mac-address 00d0.d34b.1c3d
+SW-09(config-if)#exit
+SW-09(config)#interface fastEthernet 0/2
+SW-09(config-if)#switchport mode access
+SW-09(config-if)#switchport port-security
+SW-09(config-if)#switchport port-security mac-address 0009.7ceb.ab4c
+SW-09(config-if)#exit
+SW-09(config)#interface gigabitEthernet 0/1
+SW-09(config-if)#switchport mode access
+SW-09(config-if)#switchport port-security
+SW-09(config-if)#switchport port-security mac-address 00d0.973c.8702
+SW-09(config-if)#exit
+SW-09(config)#interface gigabitEthernet 0/2
+SW-09(config-if)#shutdown
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/2, changed state to administratively down
+SW-09(config-if)#
+SW-09(config-if)#exit
+SW-09(config)#interface range fastEthernet 0/3-24
+SW-09(config-if-range)#shutdown

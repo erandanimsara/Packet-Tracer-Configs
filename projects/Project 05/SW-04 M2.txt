@@ -1,0 +1,71 @@
+Switch(config)#hostname SW-04
+SW-04(config)#vlan 2
+SW-04(config-vlan)#name LAB-01
+SW-04(config-vlan)#exit
+SW-04(config)#in
+SW-04(config)#interface ran
+SW-04(config)#interface range fa
+SW-04(config)#interface range fastEthernet 0/1-5
+SW-04(config-if-range)#swit
+SW-04(config-if-range)#switchport mode acc
+SW-04(config-if-range)#switchport mode access 
+SW-04(config-if-range)#sw
+SW-04(config-if-range)#switchport acc
+SW-04(config-if-range)#switchport access vlan 2
+SW-04(config-if-range)#exit
+
+SW-04(config)#vlan 3
+SW-04(config-vlan)#name LAB-02
+SW-04(config-vlan)#exit
+SW-04(config)#interface range fastEthernet 0/6-10
+SW-04(config-if-range)#switchport mode access 
+SW-04(config-if-range)#switchport access vlan 3
+SW-04(config-if-range)#exit
+SW-04(config)#vlan 4
+SW-04(config-vlan)#name LAB-03
+SW-04(config-vlan)#exit
+SW-04(config)#interface range fastEthernet 0/11-15
+SW-04(config-if-range)#switchport mode access 
+SW-04(config-if-range)#switchport access vlan 4
+SW-04(config-if-range)#exit
+SW-04(config)#interface range gig
+SW-04(config)#interface range gigabitEthernet 0/1
+SW-04(config-if-range)#switchport mode trunk
+
+SW-04#show mac address-table 
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+
+   1    000d.bd53.5501    DYNAMIC     Gig0/1
+   2    0002.168e.4c76    DYNAMIC     Fa0/2
+   2    0007.ec2a.174b    STATIC      Fa0/1
+   2    000d.bd53.5501    DYNAMIC     Gig0/1
+   3    000d.bd53.5501    DYNAMIC     Gig0/1
+   4    000d.bd53.5501    DYNAMIC     Gig0/1
+SW-04#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW-04(config)#interface fastEthernet 0/1
+SW-04(config-if)#switchport mode access 
+SW-04(config-if)#switchport port-security
+SW-04(config-if)#switchport port-security mac-address 0007.ec2a.174b
+SW-04(config-if)#exit
+SW-04(config)#interface fastEthernet 0/2
+SW-04(config-if)#switchport mode access 
+SW-04(config-if)#switchport port-security
+SW-04(config-if)#switchport port-security mac-address 0002.168e.4c76
+SW-04(config-if)#exit
+SW-04(config)#interface gigabitEthernet 0/2
+SW-04(config-if)#shutdown
+
+%LINK-5-CHANGED: Interface GigabitEthernet0/2, changed state to administratively down
+SW-04(config-if)#
+SW-04(config-if)#exit
+SW-04(config)#interface range fastEthernet 0/16-24
+SW-04(config-if-range)#shutdown
+
+
+
+         
